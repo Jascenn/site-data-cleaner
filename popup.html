@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Site Data Cleaner</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      width: 300px;
+      margin: 0;
+      padding: 14px 16px 12px;
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      visibility: hidden;
+    }
+    body.ready { visibility: visible; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #1e1e1e; color: #e8e8e8; }
+      .host { background: #2a2a2a; }
+      .hint, .footer { color: #888; }
+      .secondary { background: #2a2a2a; color: #ddd; }
+      .secondary:hover { background: #333; }
+      .footer a { color: #6ea8d8; }
+      .badge.silent { background: #14532d; color: #bbf7d0; }
+      .badge.normal { background: #404040; color: #ccc; }
+    }
+    h1 { margin: 0; font-size: 14px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+    .badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .badge.silent { background: #dcfce7; color: #166534; }
+    .badge.normal { background: #f4f4f5; color: #555; }
+    .host {
+      background: #f4f4f5;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin: 8px 0 10px;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 12px;
+      word-break: break-all;
+    }
+    .hint { color: #666; font-size: 11px; margin: 0 0 12px; line-height: 1.45; }
+    .row { display: flex; gap: 8px; }
+    button {
+      flex: 1;
+      padding: 9px;
+      border: 0;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .primary { background: #2d7a9f; color: #fff; }
+    .primary:hover { background: #25698b; }
+    .primary:disabled { background: #aaa; cursor: not-allowed; }
+    .secondary { background: #f4f4f5; color: #333; }
+    .secondary:hover { background: #e8e8e8; }
+    .footer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+    }
+    .footer a { color: #2d7a9f; text-decoration: none; cursor: pointer; }
+    .footer a:hover { text-decoration: underline; }
+    .status { font-size: 11px; margin-top: 8px; text-align: center; }
+    .ok { color: #16a34a; }
+    .err { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <h1>
+    <span>🧹 Site Data Cleaner</span>
+    <span class="badge normal" id="badge">—</span>
+  </h1>
+  <div class="host" id="host">Loading…</div>
+  <p class="hint" id="hint">Clears cookies, localStorage, sessionStorage, IndexedDB and cache for this site, then reloads.</p>
+  <div class="row">
+    <button class="primary" id="clear">Clear &amp; Reload</button>
+    <button class="secondary" id="toggle">+ Silent</button>
+  </div>
+  <div class="status" id="status"></div>
+  <div class="footer">
+    <a id="manage">Manage silent list</a> · Shortcut: ⌘⇧Y
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
