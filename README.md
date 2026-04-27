@@ -1,5 +1,7 @@
 # 🧹 Site Data Cleaner
 
+![Site Data Cleaner](screenshots/social-preview.png)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
 ![Chrome](https://img.shields.io/badge/Chrome-supported-brightgreen)
@@ -7,6 +9,12 @@
 > A minimal Chrome extension that instantly clears cookies, localStorage, sessionStorage, IndexedDB, and cache for the current site — with an optional **silent list** for one-click and F5 auto-clear behavior.
 >
 > 一个极简的 Chrome 扩展。一键清除当前网站的 cookies、localStorage、sessionStorage、IndexedDB 与缓存，并支持「静默名单」实现单击或 F5 自动清理。
+
+## 📸 Preview
+
+| Popup (default mode) | Options page (silent list) |
+|---|---|
+| ![Popup](screenshots/popup.png) | ![Options](screenshots/options.png) |
 
 ---
 

@@ -18,3 +18,6 @@
 node_modules/
 dist/
 build/
+
+# Local release artifacts (zips are uploaded as Release assets, not committed)
+*.zip
