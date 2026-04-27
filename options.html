@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Site Data Cleaner — Settings</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 560px;
+      margin: 24px auto;
+      padding: 0 24px;
+      background: #fff;
+      color: #1a1a1a;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #1e1e1e; color: #e8e8e8; }
+      .card { background: #262626; border-color: #383838; }
+      input { background: #2a2a2a; color: #e8e8e8; border-color: #444; }
+      .item { background: #2a2a2a; }
+      .secondary { background: #333; color: #ddd; border-color: #555; }
+      .hint, .empty { color: #888; }
+    }
+    h1 { font-size: 18px; margin: 0 0 4px; }
+    .subtitle { color: #777; font-size: 13px; margin-bottom: 20px; }
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #fafafa;
+    }
+    h2 { font-size: 14px; margin: 0 0 8px; }
+    .hint { color: #666; font-size: 12px; margin: 0 0 12px; line-height: 1.5; }
+    .row { display: flex; gap: 8px; }
+    input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: ui-monospace, monospace;
+    }
+    button {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 0;
+    }
+    .primary { background: #2d7a9f; color: #fff; }
+    .primary:hover { background: #25698b; }
+    .secondary { background: #f4f4f5; color: #333; border: 1px solid #d4d4d8; }
+    .danger { background: transparent; color: #dc2626; border: 0; padding: 6px 10px; font-size: 12px; }
+    .danger:hover { background: #fee2e2; border-radius: 4px; }
+    ul.list { list-style: none; padding: 0; margin: 12px 0 0; }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: #fff;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+    }
+    .empty { text-align: center; color: #999; font-size: 12px; padding: 20px 0; }
+    .features { font-size: 12px; color: #555; line-height: 1.7; }
+    .features code { background: #f4f4f5; padding: 1px 5px; border-radius: 3px; font-size: 11.5px; }
+    @media (prefers-color-scheme: dark) {
+      .features code { background: #2a2a2a; }
+    }
+    .save-status { color: #16a34a; font-size: 11px; margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <h1>🧹 Site Data Cleaner</h1>
+  <p class="subtitle">Manage silent list and view shortcuts.</p>
+
+  <div class="card">
+    <h2>Silent list</h2>
+    <p class="hint">Sites in this list will trigger <strong>auto-clear</strong> behavior:<br>
+      • Click the toolbar icon → cleared instantly (no confirmation popup)<br>
+      • Press <code>F5</code> / <code>⌘R</code> → cleared instantly before reload</p>
+    <div class="row">
+      <input type="text" id="newHost" placeholder="example.com (no http://, no path)" />
+      <button class="primary" id="add">Add</button>
+    </div>
+    <ul class="list" id="list"></ul>
+  </div>
+
+  <div class="card">
+    <h2>Quick reference</h2>
+    <div class="features">
+      • Toolbar icon (any site) → opens popup with <strong>Clear &amp; Reload</strong> button<br>
+      • Toolbar icon (silent-list site) → instant clear + reload, no popup<br>
+      • <code>⌘+Shift+Y</code> on silent-list site → instant clear + reload<br>
+      • <code>⌘+Shift+Y</code> on other sites → <strong>no-op</strong> (prevents accidental wipes on Gmail / banks)<br>
+      • <code>F5</code> / <code>⌘R</code> on silent-list site → intercepted, clear before reload<br>
+      • Customize shortcut at <code>chrome://extensions/shortcuts</code>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
