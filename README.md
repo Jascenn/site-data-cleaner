@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
 ![Chrome](https://img.shields.io/badge/Chrome-supported-brightgreen)
+![Edge](https://img.shields.io/badge/Edge-supported-brightgreen)
 
 > A minimal Chrome extension that instantly clears cookies, localStorage, sessionStorage, IndexedDB, and cache for the current site — with an optional **silent list** for one-click and F5 auto-clear behavior.
 >
@@ -46,6 +47,8 @@
 3. Enable **Developer mode** (top-right toggle)
 4. Click **Load unpacked** and select the cloned folder
 5. Pin the 🧹 icon to your toolbar (Chrome jigsaw icon → 📌)
+
+> Microsoft Edge: same steps at `edge://extensions/` — the extension is Manifest V3 and works identically.
 
 ### From Chrome Web Store
 
@@ -102,6 +105,16 @@ This extension is plain JavaScript with no build step. To iterate:
 1. Edit any file
 2. Go to `chrome://extensions/`
 3. Click the 🔄 reload button on the extension card
+
+### Build store packages
+
+```bash
+./build.sh --all     # verify manifest + produce dist/site-data-cleaner-v<version>-chrome.zip and -edge.zip
+./build.sh --chrome  # Chrome only
+./build.sh --edge    # Edge only
+```
+
+The script verifies description length (≤132), icon dimensions against the manifest, zip structure (manifest at root, no `__MACOSX`/`.DS_Store`), and emits both store-ready zips.
 
 ## 📝 License
 

@@ -12,12 +12,32 @@ function hostMatches(hostname, entry) {
   return hostname === entry || hostname.endsWith('.' + entry);
 }
 
+// Two-part public suffixes (subset covering common cases) so that
+// bbc.co.uk → bbc.co.uk, not co.uk
+const MULTI_PART_SUFFIXES = new Set([
+  'co.uk', 'org.uk', 'ac.uk', 'gov.uk', 'me.uk',
+  'co.jp', 'or.jp', 'ne.jp',
+  'com.au', 'net.au', 'org.au',
+  'co.nz', 'net.nz', 'org.nz',
+  'com.br', 'com.cn', 'net.cn', 'org.cn', 'gov.cn',
+  'com.tw', 'org.tw', 'com.hk', 'org.hk',
+  'co.kr', 'or.kr', 'co.in', 'co.za', 'com.sg', 'com.my'
+]);
+
+function registrableDomain(hostname) {
+  const parts = hostname.split('.');
+  if (parts.length <= 2) return hostname;
+  const lastTwo = parts.slice(-2).join('.');
+  if (MULTI_PART_SUFFIXES.has(lastTwo)) return parts.slice(-3).join('.');
+  return lastTwo;
+}
+
 // ===== Core clear-and-reload =====
 async function clearTabSiteData(tab) {
   if (!tab || !tab.url || !/^https?:/.test(tab.url)) return { ok: false, reason: 'unsupported-url' };
   const url = new URL(tab.url);
   const hostname = url.hostname;
-  const root = hostname.split('.').slice(-2).join('.');
+  const root = registrableDomain(hostname);
 
   for (const d of [hostname, '.' + hostname, root, '.' + root]) {
     try {
@@ -32,7 +52,7 @@ async function clearTabSiteData(tab) {
   try {
     await chrome.browsingData.remove(
       { origins: [`${url.protocol}//${hostname}`, `${url.protocol}//${root}`] },
-      { cookies: true, localStorage: true, indexedDB: true, cacheStorage: true, serviceWorkers: true }
+      { cookies: true, localStorage: true, indexedDB: true, cacheStorage: true, serviceWorkers: true, cache: true }
     );
   } catch (e) {}
 

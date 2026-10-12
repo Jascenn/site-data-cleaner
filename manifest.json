@@ -1,10 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Site Data Cleaner",
-  "version": "1.1.0",
-  "description": "One-click clear cookies, localStorage, sessionStorage, IndexedDB and cache for the current site, then auto-reload. Add sites to a silent list for click-to-clear and reload-to-clear behavior.",
-  "permissions": ["cookies", "scripting", "activeTab", "browsingData", "storage", "tabs"],
-  "host_permissions": ["<all_urls>"],
+  "version": "1.2.0",
+  "description": "One-click clear cookies & site data, then reload. Silent list for auto-clear on reload.",
+  "permissions": [
+    "cookies",
+    "scripting",
+    "activeTab",
+    "browsingData",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "action": {
     "default_title": "Clear current site's data and reload",
     "default_popup": "popup.html"
