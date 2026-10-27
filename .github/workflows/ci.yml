@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Lint manifests and JSON
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('manifest.json OK')"
+
+      - name: Shell syntax check
+        run: bash -n build.sh
+
+      - name: JavaScript syntax check
+        run: |
+          for f in background.js content.js popup.js options.js; do
+            node --check "$f"
+          done
+
+      - name: Build store zips
+        run: ./build.sh --all
+
+      - name: Check zip contents
+        run: |
+          for zip in dist/site-data-cleaner-*.zip; do
+            unzip -l "$zip" | awk '{print $NF}' | grep -qx manifest.json
+          done
+
+      - name: No stray build output
+        run: git diff --exit-code --stat
